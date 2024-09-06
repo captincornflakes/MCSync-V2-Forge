@@ -1,6 +1,7 @@
 package com.mcsync.mod;
 
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
@@ -24,5 +25,20 @@ public class main {
     public void onServerStarting(ServerStartingEvent event) {
         // Do something when the server starts
         LOGGER.info("Server is starting...");
+    }
+
+    // Subscribe to the PlayerLoggedInEvent
+    @SubscribeEvent
+    public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        // Check if the player is on a server (ServerPlayerEntity)
+        if (event.getPlayer() instanceof ServerPlayerEntity) {
+            ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
+            
+            // Send a message to the player when they join the server
+            player.sendMessage(new StringTextComponent("Welcome to the server, " + player.getName().getString() + "!"), player.getUUID());
+
+            // Log a message to the console
+            LOGGER.info("Player " + player.getName().getString() + " has joined the game.");
+        }
     }
 }
