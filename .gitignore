@@ -24,3 +24,9 @@ hs_err_pid*
 replay_pid*
 MCSync-V2-Forge.code-workspace
 /Server
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
